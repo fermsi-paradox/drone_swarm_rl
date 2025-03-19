@@ -1,0 +1,98 @@
+# Military Grade Drone Swarm Combat Training Configuration
+# This configuration file defines parameters for training a drone swarm
+# for military tactical operations and combat scenarios.
+
+run_name: "military_combat_v1"
+seed: 42
+total_timesteps: 5000000  # Long training for military-grade performance
+track_metrics: true
+checkpoint_freq: 100000  # Save model every 100k steps
+eval_freq: 20000  # Evaluate performance every 20k steps
+render_training: false
+headless: true  # Run without visualization during training
+save_buffer: false
+save_replay: false
+training_device: "auto"
+
+environment:
+  type: "DroneSwarmCombatEnv"
+  name: "DroneSwarmCombat-v0"
+  num_envs: 8  # Run 8 environments in parallel for faster training
+  normalize: true
+  clip_obs: 10.0
+  clip_reward: 10.0
+  
+  params:
+    # Simulation parameters
+    render_mode: None  # No rendering during training
+    headless: true
+    step_time: 0.05
+    max_steps: 2000
+    
+    # Swarm configuration
+    num_drones: 5  # Friendly drone swarm size
+    num_enemy_drones: 5  # Enemy drone swarm size
+    
+    # Environment parameters
+    env_size: [100, 100, 50]  # Large battlefield
+    obstacle_density: 0.1  # Some obstacles for tactical positioning
+    
+    # Combat parameters
+    weapon_range: 20.0  # Maximum firing range
+    hit_probability: 0.7  # Probability of successful hit when in range
+    damage_per_hit: 20  # Damage inflicted per hit
+    drone_health: 100  # Health points per drone
+    
+    # Sensor parameters
+    sensor_range: 40.0  # Detection range
+    sensor_fov: 120  # Field of view in degrees
+    sensor_noise: 0.05  # Small sensor noise for realism
+    
+    # Reward structure
+    reward_enemy_hit: 10.0  # Reward for hitting enemy
+    reward_enemy_destroyed: 50.0  # Reward for destroying an enemy drone
+    reward_friendly_hit: -15.0  # Penalty for friendly fire
+    reward_friendly_destroyed: -60.0  # Major penalty for losing a friendly drone
+    reward_mission_success: 200.0  # Bonus for completing the mission (all enemies destroyed)
+    reward_mission_failure: -100.0  # Penalty for mission failure (all friendlies destroyed)
+    reward_step_penalty: -0.1  # Small penalty per step to encourage efficiency
+    reward_distance_to_enemy: -0.01  # Small penalty based on distance to encourage engagement
+
+agent:
+  type: "PPO"  # Using Proximal Policy Optimization
+  policy: "MlpPolicy"
+  
+  # Network architecture - deeper and wider for military applications
+  net_arch:
+    pi: [256, 256, 128]  # Policy network
+    vf: [256, 256, 128]  # Value function network
+  
+  # Hyperparameters
+  learning_rate: 0.0001
+  n_steps: 2048
+  batch_size: 256
+  n_epochs: 10
+  gamma: 0.99  # Discount factor
+  gae_lambda: 0.95
+  clip_range: 0.2
+  clip_range_vf: null
+  normalize_advantage: true
+  ent_coef: 0.01  # Entropy coefficient for exploration
+  vf_coef: 0.5  # Value function coefficient
+  max_grad_norm: 0.5
+  use_sde: false
+  sde_sample_freq: -1
+  target_kl: null
+
+  # Features specific to military training
+  features:
+    detect_stealth: true  # Ability to detect stealth units
+    predict_trajectories: true  # Predict enemy trajectories
+    communications: true  # Inter-drone communication
+    formation_control: true  # Tactical formations
+    evasive_maneuvers: true  # Evasive action when targeted
+
+evaluation:
+  eval_episodes: 20
+  deterministic: true
+  render: false 

@@ -1,0 +1,39 @@
+# Default configuration for drone swarm RL training
+
+# Run configuration
+run_name: "drone_swarm_combat_ppo"
+total_timesteps: 2000000  # Increased from 1M to 2M for better learning
+checkpoint_freq: 100000
+eval_freq: 20000
+
+# Environment configuration
+environment:
+  type: "combat"  # Options: "standard" or "combat"
+  num_envs: 8     # Increased from 4 to 8 for better parallelism
+  params:
+    num_friendly_drones: 5
+    num_enemy_drones: 4  # Changed to 4 enemies as requested
+    max_steps: 1500      # Increased from 1000 to give more time for combat missions
+    headless: true       # Run without visualization during training
+    use_obstacles: true  # Enable obstacles
+    num_obstacles: 10    # Number of obstacles to create
+    enable_firing: true  # Enable firing mechanics
+    enable_destruction: true  # Enable drone destruction
+
+# Agent configuration
+agent:
+  type: "PPO"  # Options: "PPO" or "SAC"
+  learning_rate: 3.0e-4
+  n_steps: 2048
+  batch_size: 128        # Increased from 64 for more stable learning
+  n_epochs: 10
+  gamma: 0.99
+  gae_lambda: 0.95
+  clip_range: 0.2
+  ent_coef: 0.01         # Slightly increased for better exploration
+  vf_coef: 0.5
+  max_grad_norm: 0.5
+  use_sde: false
+  net_arch:
+    pi: [256, 256, 128]  # Added one more layer for more complex policy
+    vf: [256, 256, 128]  # Added one more layer for more complex value function 

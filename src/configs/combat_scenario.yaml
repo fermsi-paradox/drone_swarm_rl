@@ -1,0 +1,34 @@
+# Combat scenario configuration for drone swarm visualization
+
+# Environment configuration
+environment:
+  type: "combat"
+  params:
+    num_friendly_drones: 8
+    num_enemy_drones: 12
+    max_steps: 2000
+    headless: false  # Enable visualization
+
+# Scene configuration
+scene:
+  terrain: "urban"
+  time_of_day: "day"
+  weather: "clear"
+  obstacles: true
+  
+# Combat parameters
+combat:
+  enemy_behavior: "aggressive"  # Options: "passive", "defensive", "aggressive"
+  weapon_range: 10.0
+  detection_range: 15.0
+
+# Visualization settings
+visualization:
+  camera_mode: "follow"  # Options: "follow", "overview", "free"
+  target_fps: 30
+  show_debug_info: true
+  show_trajectories: true
+
+# Agent configuration
+agent:
+  type: "PPO"  # Should match training configuration 
