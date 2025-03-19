@@ -1,4 +1,4 @@
-#Military Swarm Drone Intelligence - Using RL
+# Military Swarm Drone Intelligence - Using RL
 
 This simulation uses RL via OpenAI Gymnasium to learn raw from combat with an enemy drone swarm.  There is no Supervised Learning involved here, so extremely primative agents that learn how to move, walk, fly, and whatever else it takes to eliminate the threat.
 
