@@ -4,7 +4,7 @@ This simulation uses RL via OpenAI Gymnasium to learn raw from combat with an en
 
 Because of their primitive nature, it takes EXTENSIVE headless simulation training in order to optimize their abilities in combat.  
 
-#Things to consider altering:
+# Things to consider altering:
 
 -Add in additional actions and rewards to the drones to optimize for mobility (if they are heavily camping)
 -Consider Supervised fine-tuning in the raw un-trained agent code.
