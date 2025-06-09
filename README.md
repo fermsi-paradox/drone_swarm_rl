@@ -2,6 +2,8 @@
 
 This project implements a comprehensive reinforcement learning framework for training and evaluating military-grade drone swarm combat tactics. The system uses state-of-the-art RL algorithms to train drone swarms for tactical operations, reconnaissance, formation control, and engagement strategies.
 
+**Optimized for Linux/WSL2 environments.**
+
 ## Key Features
 
 - **Advanced Tactical Training**: Train drone swarms to develop sophisticated combat and reconnaissance strategies
@@ -21,14 +23,22 @@ git clone https://github.com/yourusername/drone_swarm_rl.git
 # 2. Navigate to the project directory (IMPORTANT!)
 cd drone_swarm_rl
 
-# 3. Run the quick start script
+# 3. Run the automated setup script
+./setup_and_run.sh
+```
+
+Alternatively, you can run the interactive quick start:
+
+```bash
 python quick_start.py
 ```
 
-The quick start script will:
+The setup script will:
 - Set up all necessary directories
-- Check dependencies and Python version
-- Offer to run a small demo
+- Create and activate a virtual environment
+- Install all dependencies
+- Check system requirements
+- Offer to run a demo
 
 ## Manual Installation
 
@@ -37,6 +47,7 @@ The quick start script will:
 - Python 3.8-3.12
 - pip (Python package installer)
 - For visualization: OpenGL and ffmpeg (for recording)
+- Linux or WSL2 environment
 
 ### Step-by-Step Installation
 
@@ -48,22 +59,13 @@ cd drone_swarm_rl  # IMPORTANT! All commands must be run from this directory
 
 2. Set up the directory structure:
 ```bash
-# On Linux/macOS
-bash setup_directories.sh
-
-# On Windows
-setup_directories.bat
+./setup_directories.sh
 ```
 
 3. Create a virtual environment:
 ```bash
-# For Linux/macOS
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate
-
-# For Windows
-python -m venv venv
-venv\Scripts\activate
 ```
 
 4. Install dependencies:
@@ -78,14 +80,25 @@ pip install numpy --pre
 pip install -r requirements.txt
 ```
 
+### System Dependencies (Linux/WSL2)
+
+For OpenGL support on Ubuntu/Debian:
+```bash
+sudo apt-get update
+sudo apt-get install python3-opengl freeglut3-dev mesa-utils
+```
+
+For recording videos:
+```bash
+sudo apt-get install ffmpeg
+```
+
 ### Troubleshooting Common Issues
 
 - **"File not found" errors**: Make sure you're running commands from the `drone_swarm_rl` directory
-- **Import errors**: Check that the directory structure is correct (run the setup script)
-- **OpenGL-related errors**:
-  - On Ubuntu/Debian: `sudo apt-get install python3-opengl freeglut3-dev`
-  - On Windows: Ensure you have up-to-date graphics drivers
-  - On macOS: OpenGL should be available by default
+- **Import errors**: Check that the directory structure is correct (run `./setup_directories.sh`)
+- **Permission denied on scripts**: Run `chmod +x setup_and_run.sh setup_directories.sh`
+- **OpenGL-related errors**: Install the OpenGL packages listed above
 
 ## Project Structure
 
@@ -99,8 +112,8 @@ drone_swarm_rl/
 ├── train_military_model.py     # Military-specific training script
 ├── visualize_combat.py         # Combat visualization
 ├── train_and_visualize.py      # Combined training/visualization
-├── setup_directories.sh        # Directory setup script (Linux/macOS)
-├── setup_directories.bat       # Directory setup script (Windows) 
+├── setup_directories.sh        # Directory setup script
+├── setup_and_run.sh            # Automated setup and run script
 ├── quick_start.py              # Interactive setup and demo
 └── README.md                   # This file
 ```
@@ -113,6 +126,7 @@ To train, analyze, and visualize a military drone swarm model:
 
 ```bash
 # Make sure you're in the project directory and virtual environment is activated
+source venv/bin/activate
 python train_and_visualize.py --full_pipeline --timesteps 100000
 ```
 
@@ -196,6 +210,20 @@ python train_military_model.py --config src/configs/aggressive_tactics.yaml --an
 python train_military_model.py --config src/configs/defensive_tactics.yaml --analyze
 ```
 
+## Environment Setup
+
+Remember to activate your virtual environment before running any commands:
+
+```bash
+# Navigate to project directory
+cd drone_swarm_rl
+
+# Activate virtual environment
+source venv/bin/activate
+
+# Now you can run any of the commands above
+```
+
 ## Acknowledgments
 
 This project builds upon research from:
@@ -216,7 +244,7 @@ If you use this code in your research, please cite:
 @software{drone_swarm_rl,
   author = {Your Name},
   title = {Military Drone Swarm Reinforcement Learning},
-  year = {2023},
+  year = {2024},
   url = {https://github.com/yourusername/drone_swarm_rl}
 }
 ``` 
