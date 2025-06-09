@@ -11,7 +11,6 @@ This project implements a comprehensive reinforcement learning framework for tra
 - **Combat Simulation**: Realistic combat environment with weapons, damage modeling, and tactical objectives
 - **Performance Analytics**: Comprehensive metrics for evaluating mission success, tactical effectiveness, and survivability
 - **3D Visualization**: Interactive visualization of trained models with tactical overlays and combat statistics
-
 ## Quick Start Guide (5 Minutes)
 
 For the fastest way to get started:
@@ -247,4 +246,4 @@ If you use this code in your research, please cite:
   year = {2024},
   url = {https://github.com/yourusername/drone_swarm_rl}
 }
-``` 
+```
